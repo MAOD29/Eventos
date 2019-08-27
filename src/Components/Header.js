@@ -19,10 +19,10 @@ const Header = () =>(
           <span className="nav-link">Eventos</span>
         </Link>
       </li>
-      <Link to='/Event'>
+      <Link to='/Destinos'>
           <span className="nav-link">Destinos</span>
         </Link>
-        <Link to='/Event'>
+        <Link to='/Comercios'>
           <span className="nav-link">Comercios</span>
         </Link>
     </ul>

@@ -22,26 +22,38 @@ class Login extends React.Component {
     }
     handleOnSubmit= async e => {
         e.preventDefault()
-        console.log(this.state.form)
-        /*try {
+      
+        try {
 
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
-            const res = await fetch('http://eventos.test/api/v1/login',{
+            const response = await fetch('http://eventos.test/api/v1/login',{
                 method:'POST',
                 headers:myHeaders,
                 body: JSON.stringify(this.state.form)
     
             })
-            const data = await res.json()
-            console.log(data);    
+            switch (response.status) {
+                case 200:
+                    const data = await response.json()
+                    this.props.history.push('/')
+                    break;
+                case 401:
+                    console.log('credenciales incorrectas')
+                    break;
+                    
+                default:
+                   console.log('error'+response.status)
+                    break;
+            }
+            
         } catch (error) {
+            console.log(error)
             this.setState({
                 error
             })
         }
-        */
     }
 
     render(){
