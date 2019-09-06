@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../Components/Header";
 import CardDestino from "../Components/CardDestino";
-
+import Loading from "../Components/Loading"
 class Destino extends React.Component {
   state = {
     data: [],
-    error: null
+    error: null,
+    loading:true
   };
 
   async componentDidMount() {
@@ -18,7 +18,8 @@ class Destino extends React.Component {
       const data = await res.json();
 
       this.setState({
-        data
+        data,
+        loading:false
       });
     } catch (error) {
       this.setState({
@@ -28,9 +29,12 @@ class Destino extends React.Component {
   }
 
   render() {
+    if(this.state.loading){
+      return <Loading/>
+    }
     return (
       <React.Fragment>
-        <Header />
+       
         <div>
           {this.state.data.map(card => {
             return (

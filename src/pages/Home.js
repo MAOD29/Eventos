@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Header from "../Components/Header";
+
 import Portada from '../Components/Portada'
 class Home extends React.Component {
   state = {};
@@ -8,8 +8,7 @@ class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
-		<Portada/>
+		    <Portada/>
       </React.Fragment>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const CardBusines = (props) => {
-    const {name,descripcion,image,location,contact,start,finish,type} = props
+    const {name,descripcion,image,location,contact,start,finish,type} = props.busines
     return(
         <div className="card mb-3">
         <img src={image} className="card-img-top" alt="..."/>

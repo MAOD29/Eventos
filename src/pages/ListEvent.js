@@ -7,14 +7,9 @@ const ListEvent = ({events}) => (
         return (
           <CardEvent
             key={card.id}
-            title={card.title}
-            description={card.descripcion}
-            img={card.img}
-            location={card.location}
-            date={card.date}
-            start={card.start}
-            finish={card.finish}
+            event={card}
           />
+
         );
       })}
     </div>

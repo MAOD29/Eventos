@@ -1,10 +1,7 @@
 import React from 'react'
 
-
-
 const Event = (props) => {
- 
-    const {title,descripcion,location,image,date,start,finish,web_site} = props
+    const {title,descripcion,location,image,date,start,finish,web_site} = props.event
     return (
         <div className="card mb-3">
         <img src={image} className="card-img-top" alt="..."/>

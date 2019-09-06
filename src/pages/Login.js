@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom';
 import FormLogin from '../Components/FormLogin'
 class Login extends React.Component {
 
@@ -11,13 +12,7 @@ class Login extends React.Component {
     }
     handleChange = async e => {
        this.setState({
-             //let partialstate = {}
-            //partialstate[e.target.name] = e.target.value
-            //this.setState(partialstate)
-           form:{
-               ...this.state.form,
-               [e.target.name]: e.target.value
-           }
+           form:{ ...this.state.form,[e.target.name]: e.target.value }
        })
     }
     handleOnSubmit= async e => {
@@ -37,6 +32,8 @@ class Login extends React.Component {
             switch (response.status) {
                 case 200:
                     const data = await response.json()
+                    console.log(data)
+                    localStorage.setItem('myData', JSON.stringify(data));
                     this.props.history.push('/')
                     break;
                 case 401:
@@ -71,4 +68,4 @@ class Login extends React.Component {
 
 }
 
-export default Login
+export default withRouter(Login)

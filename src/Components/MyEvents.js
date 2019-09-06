@@ -1,9 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Loading from '../Components/Loading'
+import { Link } from 'react-router-dom'
+import Loading from './Loading'
 
-import ListEvent from './ListEvent'
-class Event extends React.Component {
+import TableMyEvents from './TableMyEvents'
+class MyEvents extends React.Component {
   state = {
     data:[],
     error: null,
@@ -32,18 +33,21 @@ class Event extends React.Component {
   }
 
   render() {
-    console.log(  localStorage.getItem('myData'))
     if(this.state.loading){
       return <Loading/>
     }
     return (
       <React.Fragment>
-        <ListEvent
-        events= {this.state.data}
-        />
+       <React.Fragment>
+        <Link to={"/crear-evento"}>
+          <button className="btn btn-outline-success">Crear evento</button>
+        </Link>
+        <TableMyEvents 
+        events={this.state.data} />
+      </React.Fragment>
       </React.Fragment>
     );
   }
 }
 
-export default Event;
+export default MyEvents;
