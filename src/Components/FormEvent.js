@@ -33,31 +33,27 @@ const FormEvent = ({form,onChange,onSubmit}) => {
         <div className="row">
             <div className="col-4">
                 <label >Fecha</label>
-                <input className="form-control" type="text" required name="date" 
+                <input className="form-control" type="date" required name="date" 
                  onChange={onChange}
                  defaultValue={form.date}/>
             
             </div>
             <div className="col-4">
                 <label >Hora de inicio</label>
-                <input className="form-control" type="text" required name="start" 
+                <input className="form-control" type="time" required name="start" 
                  onChange={onChange}
                  defaultValue={form.start}/>
             </div>
             <div className="col-4">
                 <label >Hora de salida</label>
-                <input className="form-control" type="text" required name="finish" 
+                <input className="form-control" type="time" required name="finish" 
                   onChange={onChange}
                   defaultValue={form.finish}/>
             </div>
             
         </div>
         <div className="row">
-        <div className="col-4">
-                <label >user_id</label>
-                <input className="form-control" type="text" required name="user_id" onChange={onChange}
-                 defaultValue={form.user_id} />
-            </div>
+            
             <div className="col-4">
                 <label >Sitio web</label>
                 <input className="form-control" type="text" required name="web_site" onChange={onChange}

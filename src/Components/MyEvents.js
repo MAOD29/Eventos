@@ -13,10 +13,12 @@ class MyEvents extends React.Component {
   }
 
   async componentDidMount(){
+    const user = JSON.parse(localStorage.getItem('myData'))
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('Authorization',user.api_token)
     try{
-      const res = await fetch("http://eventos.test/api/v1/evento",{
+      const res = await fetch("http://eventos.test/api/v1/user/getevents",{
         headers: myHeaders
       })
       const data = await res.json()

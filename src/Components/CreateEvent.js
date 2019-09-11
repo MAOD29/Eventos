@@ -11,7 +11,7 @@ class CreateEvent extends React.Component{
             date: '',
             start:'',
             finish:'',
-            user_id:'',
+          
             web_site:'',
             image:''
         },
@@ -34,11 +34,12 @@ class CreateEvent extends React.Component{
       handleSubmit = async e => {
         e.preventDefault();
         try{
+          const user = JSON.parse(localStorage.getItem('myData'))
           const config ={
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'R0IAsWrf2UGKwBssyobzJv7wDHwviaKWwqNiewhnsfH0jUp53DVgAhnZbXOm'
+              'Authorization': user.api_token
             },
             body: JSON.stringify(this.state.form)
           }

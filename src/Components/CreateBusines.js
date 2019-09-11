@@ -11,10 +11,10 @@ class CreateBusines extends React.Component{
             contact: '',
             start:'',
             finish:'',
-            user_id:'',
             typebusiness_id:'',
             image:''
         },
+        options:[],
         error: null,
     
       };
@@ -30,15 +30,50 @@ class CreateBusines extends React.Component{
           }
         })
       }
+     
+      componentDidMount(){
+        this.getTypeOfBussiness()
+
+      }
+     
+      getTypeOfBussiness = async () => {
+
+        try{
+          const user = JSON.parse(localStorage.getItem('myData'))
+          const config ={
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': user.api_token
+            }
+  
+          }
+          const res = await fetch('http://eventos.test/api/v1/comercio/getTypeBussiness',config)
+          const data = await res.json()
+          console.log(data.types)
+         this.setState({
+          options:data.types
+         })
+         
+         
+        }catch(error){
+          this.setState({
+            error:error
+          })
+          return ''
+        }
+        
+      }
 
       handleSubmit = async e => {
         e.preventDefault();
         try{
+          const user = JSON.parse(localStorage.getItem('myData'))
           const config ={
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'R0IAsWrf2UGKwBssyobzJv7wDHwviaKWwqNiewhnsfH0jUp53DVgAhnZbXOm'
+              'Authorization': user.api_token
             },
             body: JSON.stringify(this.state.form)
           }
@@ -60,6 +95,8 @@ class CreateBusines extends React.Component{
                     form={this.state.form}
                     onChange = {this.handleChange}
                     onSubmit= {this.handleSubmit}
+                    options= {this.state.options}
+            
                 />
             )
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const FormBusines = ({form,onChange,onSubmit}) => {
+const FormBusines = ({form,onChange,onSubmit,options}) => {
 
     return (
     <form className="container" onSubmit={onSubmit} >
@@ -40,29 +40,33 @@ const FormBusines = ({form,onChange,onSubmit}) => {
             </div>
             <div className="col-4">
                 <label >Hora de inicio</label>
-                <input className="form-control" type="text" required name="start" 
+                <input className="form-control" type="time" required name="start" 
                  onChange={onChange}
                  defaultValue={form.start}/>
             </div>
             <div className="col-4">
                 <label >Hora de salida</label>
-                <input className="form-control" type="text" required name="finish" 
+                <input className="form-control" type="time" required name="finish" 
                   onChange={onChange}
                   defaultValue={form.finish}/>
             </div>
             
         </div>
         <div className="row">
-        <div className="col-4">
-                <label >user_id</label>
-                <input className="form-control" type="text" required name="user_id" onChange={onChange}
-                 defaultValue={form.user_id} />
-            </div>
             <div className="col-4">
-                <label >Typo</label>
-                <input className="form-control" type="text" required name="typebusiness_id" onChange={onChange}
-                 defaultValue={form.typebusiness_id} />
+            <label>Elige un tipo:</label>
+                <select className="form-control" required onChange={onChange} name="typebusiness_id" defaultValue={form.typebusiness_id}>
+                    <option value=''>Seleccione...</option>
+
+                    { options.map(key => (
+                        <option key={key.id} value={key.id}>{key.name}</option>
+                        )
+                    )}
+                </select>
+            
             </div>
+
+
             <div className="col-4">
                 <label >Imagen</label>
                 <input className="form-control" type="text" required name="image" onChange={onChange}

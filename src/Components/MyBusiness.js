@@ -18,10 +18,12 @@ class MyBusiness extends React.Component {
     this.setState({
       loading: true
     })
+    const user = JSON.parse(localStorage.getItem('myData'))
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append('Authorization',user.api_token)
     try {
-      const res = await fetch("http://eventos.test/api/v1/comercio", { headers: myHeaders })
+      const res = await fetch("http://eventos.test/api/v1/user/getbussiness", { headers: myHeaders })
       const data = await res.json()
 
       this.setState({
