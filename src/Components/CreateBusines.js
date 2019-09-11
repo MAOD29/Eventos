@@ -50,7 +50,6 @@ class CreateBusines extends React.Component{
           }
           const res = await fetch('http://eventos.test/api/v1/comercio/getTypeBussiness',config)
           const data = await res.json()
-          console.log(data.types)
          this.setState({
           options:data.types
          })
@@ -90,15 +89,15 @@ class CreateBusines extends React.Component{
 
 
     render(){
-            return(
-                <FormBusines
-                    form={this.state.form}
-                    onChange = {this.handleChange}
-                    onSubmit= {this.handleSubmit}
-                    options= {this.state.options}
-            
-                />
-            )
+          return(
+              <FormBusines
+                  form={this.state.form}
+                  onChange = {this.handleChange}
+                  onSubmit= {this.handleSubmit}
+                  options= {this.state.options}
+          
+              />
+          )
     }
 }
 export default withRouter(CreateBusines)

@@ -33,11 +33,12 @@ class TableMyEvents extends React.Component{
             loading:true
         })
         try{
+          const user = JSON.parse(localStorage.getItem('myData'))
           const config ={
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'R0IAsWrf2UGKwBssyobzJv7wDHwviaKWwqNiewhnsfH0jUp53DVgAhnZbXOm'
+              'Authorization': user.api_token
             },
           }
           const res = await fetch(`http://eventos.test/api/v1/evento/${id}`,config)

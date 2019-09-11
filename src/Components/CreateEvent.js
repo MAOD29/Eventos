@@ -11,7 +11,6 @@ class CreateEvent extends React.Component{
             date: '',
             start:'',
             finish:'',
-          
             web_site:'',
             image:''
         },
@@ -46,7 +45,7 @@ class CreateEvent extends React.Component{
           const res = await fetch('http://eventos.test/api/v1/evento',config)
           const data = await res.json()
           console.log(data)
-          this.props.history.push('/publicaciones/mis-eventos')
+          this.props.history.push('/mis-eventos')
         }catch(error){
           this.setState({
             error:error

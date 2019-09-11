@@ -1,8 +1,12 @@
 import React from 'react'
 
+const typebusiness = (id,options) => {
+    const type = options.find((option) => option.id === id )
+    return type ? type.name : 'Seleccione...'
+  
+}
 
 const FormBusines = ({form,onChange,onSubmit,options}) => {
-
     return (
     <form className="container" onSubmit={onSubmit} >
         <br/>
@@ -56,17 +60,16 @@ const FormBusines = ({form,onChange,onSubmit,options}) => {
             <div className="col-4">
             <label>Elige un tipo:</label>
                 <select className="form-control" required onChange={onChange} name="typebusiness_id" defaultValue={form.typebusiness_id}>
-                    <option value=''>Seleccione...</option>
+                    <option value={form.typebusiness_id}>
+                    {typebusiness(form.typebusiness_id,options)}
+                    </option>
 
                     { options.map(key => (
                         <option key={key.id} value={key.id}>{key.name}</option>
                         )
                     )}
                 </select>
-            
             </div>
-
-
             <div className="col-4">
                 <label >Imagen</label>
                 <input className="form-control" type="text" required name="image" onChange={onChange}
