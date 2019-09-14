@@ -12,7 +12,7 @@ class CreateBusines extends React.Component{
             start:'',
             finish:'',
             typebusiness_id:'',
-            image:''
+            image:null
         },
         options:[],
         error: null,
@@ -27,6 +27,18 @@ class CreateBusines extends React.Component{
           form: {
             ...this.state.form,
             [e.target.name]: e.target.value
+          }
+        })
+      }
+      handleChooseFile = e => {
+        //let partialstate = {}
+        //partialstate[e.target.name] = e.target.value
+        //this.setState(partialstate)
+        console.log(e.target.files[0])
+        this.setState({
+          form: {
+               ...this.state.form,
+              [e.target.name]: e.target.files[0]
           }
         })
       }
@@ -65,16 +77,24 @@ class CreateBusines extends React.Component{
       }
 
       handleSubmit = async e => {
+        //TODO:: Refactorizar 
         e.preventDefault();
-        try{
+        const {form} = this.state
+        const getFormData = form => Object.keys(form).reduce((formData, key) => {
+          formData.append(key, form[key]);
+          return formData;
+      }, new FormData());
+      
+      const formData = getFormData(form)
+       try{
           const user = JSON.parse(localStorage.getItem('myData'))
           const config ={
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+            
               'Authorization': user.api_token
             },
-            body: JSON.stringify(this.state.form)
+            body: formData
           }
           const res = await fetch('http://eventos.test/api/v1/comercio',config)
           const data = await res.json()
@@ -84,7 +104,7 @@ class CreateBusines extends React.Component{
           this.setState({
             error:error
           })
-        }
+        } 
       }
 
 
@@ -95,6 +115,7 @@ class CreateBusines extends React.Component{
                   onChange = {this.handleChange}
                   onSubmit= {this.handleSubmit}
                   options= {this.state.options}
+                  onChooseFile = {this.handleChooseFile}
           
               />
           )

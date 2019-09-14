@@ -2,7 +2,7 @@ import React from 'react'
 import CardEvent from '../Components/CardEvent'
 
 const ListEvent = ({events}) => (
-<div> 
+<div className="card-group"> 
       {events.map(card => {
         return (
           <CardEvent

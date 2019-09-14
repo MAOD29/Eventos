@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const FormEvent = ({form,onChange,onSubmit}) => {
+const FormEvent = ({form,onChange,onSubmit,onChooseFile}) => {
 
     return (
     <form className="container" onSubmit={onSubmit} >
@@ -61,8 +61,7 @@ const FormEvent = ({form,onChange,onSubmit}) => {
             </div>
             <div className="col-4">
                 <label >Imagen</label>
-                <input className="form-control" type="text" required name="image" onChange={onChange}
-                 defaultValue={form.image} />
+                <input className="form-control" type="file" required name="image" onChange={onChooseFile} />
             </div>
         </div>
         <br/>

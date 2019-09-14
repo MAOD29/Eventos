@@ -6,9 +6,9 @@ const typebusiness = (id,options) => {
   
 }
 
-const FormBusines = ({form,onChange,onSubmit,options}) => {
+const FormBusines = ({form,onChange,onSubmit,options,onChooseFile}) => {
     return (
-    <form className="container" onSubmit={onSubmit} >
+    <form className="container" onSubmit={onSubmit}>
         <br/>
         <div className="row">
             <div className="col-4">
@@ -72,8 +72,8 @@ const FormBusines = ({form,onChange,onSubmit,options}) => {
             </div>
             <div className="col-4">
                 <label >Imagen</label>
-                <input className="form-control" type="text" required name="image" onChange={onChange}
-                 defaultValue={form.image} />
+                <input required className="form-control" type="file"  name="image" onChange={onChooseFile}
+                 />
             </div>
         </div>
         <br/>

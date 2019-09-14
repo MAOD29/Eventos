@@ -7,9 +7,22 @@ class EditBusines extends React.Component {
     options: [],
     error: null
   };
+
   componentDidMount() {
     this.getTypeOfBussiness();
   }
+  handleChooseFile = e => {
+    //let partialstate = {}
+    //partialstate[e.target.name] = e.target.value
+    //this.setState(partialstate)
+    console.log(e.target.files[0]);
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.files[0]
+      }
+    });
+  };
   getTypeOfBussiness = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("myData"));
@@ -48,21 +61,31 @@ class EditBusines extends React.Component {
   handleSubmit = async e => {
     const { busines } = this.props.location.state;
     e.preventDefault();
+    
+    const { form } = this.state;
+    const getFormData = form =>
+      Object.keys(form).reduce((formData, key) => {
+        formData.append(key, form[key]);
+        return formData;
+      }, new FormData());
+    const formData = getFormData(form);
+    formData.append('_method','put')
+   
     try {
       const user = JSON.parse(localStorage.getItem("myData"));
       const config = {
-        method: "PUT",
+        method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: user.api_token
         },
-        body: JSON.stringify(this.state.form)
+        body: formData
       };
       const res = await fetch(
         `http://eventos.test/api/v1/comercio/${busines.id}`,
         config
       );
       const data = await res.json();
+      console.log(data)
       this.props.history.push("/mis-comercios");
     } catch (error) {
       this.setState({
@@ -70,7 +93,6 @@ class EditBusines extends React.Component {
       });
     }
   };
-  
 
   render() {
     const { busines } = this.props.location.state;
@@ -81,6 +103,7 @@ class EditBusines extends React.Component {
         onChange={this.handleChange}
         onSubmit={this.handleSubmit}
         options={this.state.options}
+        onChooseFile={this.handleChooseFile}
       />
     );
   }

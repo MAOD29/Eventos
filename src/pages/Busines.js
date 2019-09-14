@@ -33,7 +33,9 @@ class Business extends React.Component {
     }
     return (
       <React.Fragment>
+        <div className="container">
         <ListBusines business={this.state.data} />
+        </div>
       </React.Fragment>
     );
   }

@@ -20,7 +20,7 @@ class TableMyEvents extends React.Component{
                     <td>
                         <Link to={{ pathname: `/mis-eventos/${event.id}`, state: { event: event} }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
 
-                        <button onClick={() => this.handleOnDelete(event.id)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
+                        <button onClick={() => this.props.onDelete(event.id)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
                     </td>
                 </tr> 
                 )
@@ -28,33 +28,7 @@ class TableMyEvents extends React.Component{
         )
     }
      
-    handleOnDelete = async id => {
-        this.setState({
-            loading:true
-        })
-        try{
-          const user = JSON.parse(localStorage.getItem('myData'))
-          const config ={
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': user.api_token
-            },
-          }
-          const res = await fetch(`http://eventos.test/api/v1/evento/${id}`,config)
-          const data = await res.json()
-          console.log(data)
-          this.setState({
-            loading:false
-        })
-       
-         
-        }catch(error){
-          this.setState({
-            error:error
-          })
-        }
-      }
+    
     render(){
         if(this.state.loading){
             return <Loading/>
