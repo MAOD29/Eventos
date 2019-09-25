@@ -2,8 +2,8 @@ import React from 'react'
 
 
 
-const NotFound = () => (
-	 "NotFound"
+const NotFound = (props) => (
+	 `Erorr de ${props.data}`
 
 )
 

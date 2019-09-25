@@ -23,21 +23,22 @@ class Login extends React.Component {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
-            const response = await fetch('http://eventos.test/api/v1/login',{
+            const response = await fetch('http://backendeventos.test/api/v1/login',{
                 method:'POST',
                 headers:myHeaders,
                 body: JSON.stringify(this.state.form)
     
             })
+            const data = await response.json()
             switch (response.status) {
+              
                 case 200:
-                    const data = await response.json()
                     console.log(data)
                     localStorage.setItem('myData', JSON.stringify(data));
                     this.props.history.push('/')
                     break;
                 case 401:
-                    console.log('credenciales incorrectas')
+                    console.log(data)
                     break;
                     
                 default:

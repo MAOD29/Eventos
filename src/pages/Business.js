@@ -1,53 +1,51 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import Loading from '../Components/Loading';
-import ListEvent from './ListEvent';
+import React from "react"
+import ListBusines from "../Components/ListBusiness.js"
+import Loading from "../Components/Loading"
 import Error from './NotFound'
-class Event extends React.Component {
-
+class Business extends React.Component {
   state = {
     data: [],
     error: null,
-    loading: true 
+    loading: true
   }
-
   async componentDidMount() {
     const myHeaders = new Headers();
-    myHeaders.append('Accept', 'application/json')
-
+   // myHeaders.append("Content-Type", "application/json")
+    myHeaders.append('Accept','application/json')
     try {
-      const res = await fetch('http://backendeventos.test/api/v1/event', {
+      const res = await fetch("http://backendeventos.test/api/v1/business", {
         headers: myHeaders
       })
-      const event = await res.json();
+     
+      const business = await res.json();
       switch (res.status) {
         case 200:
-          console.log(event.data);
+          console.log(business.data);
           this.setState({
-            data: event.data.data,
+            data: business.data.data,
             loading: false
           });
 
           break;
         case 401:  
-          console.log(event.message)
+          console.log(business.message)
           this.setState({
-            error: event.message,
+            error: business.message,
             loading: false
           });
           break;
         case 500:
-          console.log(event)
+          console.log(business)
           this.setState({
-            error: event,
+            error: business,
             loading: false
           });
           break;
 
         default:
-          console.log(event)
+          console.log(business)
           this.setState({
-            error: event,
+            error: business,
             loading: false
           });
           break;
@@ -70,10 +68,12 @@ class Event extends React.Component {
     }
     return (
       <React.Fragment>
-        <ListEvent events={this.state.data} />
+        <div className="container">
+        <ListBusines business={this.state.data} />
+        </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default Event;
+export default Business

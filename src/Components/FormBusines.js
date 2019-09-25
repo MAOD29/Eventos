@@ -5,8 +5,17 @@ const typebusiness = (id,options) => {
     return type ? type.name : 'Seleccione...'
   
 }
-
-const FormBusines = ({form,onChange,onSubmit,options,onChooseFile}) => {
+const imagePreviewExist = (imagePreview) => {
+   
+    if (imagePreview) {
+       return  (<img src={imagePreview} width={'320px'} alt="imagen previa" />);
+      } else {
+       return (<div className="previewText">Please select an Image for Preview</div>);
+      }
+  
+}
+const FormBusines = ({form,onChange,onSubmit,options,onChooseFile,imagePreview}) => {
+    
     return (
     <form className="container" onSubmit={onSubmit}>
         <br/>
@@ -59,9 +68,9 @@ const FormBusines = ({form,onChange,onSubmit,options,onChooseFile}) => {
         <div className="row">
             <div className="col-4">
             <label>Elige un tipo:</label>
-                <select className="form-control" required onChange={onChange} name="typebusiness_id" defaultValue={form.typebusiness_id}>
-                    <option value={form.typebusiness_id}>
-                    {typebusiness(form.typebusiness_id,options)}
+                <select className="form-control" required onChange={onChange} name="typebusinesses_id" defaultValue={form.typebusiness_id}>
+                    <option value={form.typebusinesses_id}>
+                    {typebusiness(form.typebusinesses_id,options)}
                     </option>
 
                     { options.map(key => (
@@ -72,12 +81,19 @@ const FormBusines = ({form,onChange,onSubmit,options,onChooseFile}) => {
             </div>
             <div className="col-4">
                 <label >Imagen</label>
-                <input required className="form-control" type="file"  name="image" onChange={onChooseFile}
+                <input required  className="form-control" type="file"  name="image" onChange={onChooseFile}
                  />
+
+                  
+            </div>
+            <div className="col-4" >
+                {imagePreviewExist(imagePreview)}
             </div>
         </div>
         <br/>
         <button className="btn btn-info">Enviar</button>
+
+
     </form>
     )
 }
