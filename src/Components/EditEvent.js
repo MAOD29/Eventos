@@ -1,13 +1,16 @@
 import React from "react";
 import FormEvent from "./FormEvent";
-import Error from '../pages/NotFound'
+import Error from './pages/NotFound'
 
 class EditEvent extends React.Component {
   state = {
-    form: this.props.location.state.event,
+    form: [],
     error: null
   };
 
+  componentDidMount(){
+    this.traerDatos()
+  }
   handleChooseFile = e => {
     console.log(e.target.files[0]);
     this.setState({
@@ -25,6 +28,62 @@ class EditEvent extends React.Component {
       }
     });
   };
+  
+  async traerDatos() {
+
+    const { id } = this.props.match.params;
+    this.setState({ loading: true })
+    const user = JSON.parse(localStorage.getItem("myData"));
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${user.token}`);
+
+    const res = await fetch( `http://backendeventos.test/api/v1/event/${id}`, {
+        headers: myHeaders
+    });
+
+    switch (res.status) {
+        case 200:
+            const event = await res.json();
+            console.log(event);
+            this.setState({
+                form: event.data,
+                loading: false
+            });
+
+            break;
+        case 401:
+            console.log('error 401')
+            this.setState({
+                error: 'error no autorizado',
+                loading: false
+            });
+            break;
+        case 404:
+            console.log('error 404')
+            this.setState({
+                error: 'error 404 no contenido',
+                loading: false
+            });
+            break;
+        case 500:
+            console.log('error 500')
+            this.setState({
+                error: 'error 500',
+                loading: false
+            });
+            break;
+
+        default:
+            console.log('error inesperado')
+            this.setState({
+                error: res.status,
+                loading: false
+            });
+            break;
+    }
+
+}
 
   handleSubmit = async e => {
     const { event } = this.props.location.state;
@@ -97,13 +156,13 @@ class EditEvent extends React.Component {
   };
 
   render() {
-    const { event } = this.props.location.state;
+   
     if (this.state.error) {
       return <Error data={this.state.error} />
   }
     return (
       <FormEvent
-        form={event}
+        form={this.state.form}
         onChange={this.handleChange}
         onSubmit={this.handleSubmit}
         onChooseFile={this.handleChooseFile}

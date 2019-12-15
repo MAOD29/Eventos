@@ -18,7 +18,7 @@ class TableMisComercios extends React.Component{
                     <td>{busines.descripcion}</td>
                     <td>{busines.location}</td>
                     <td>
-                        <Link to={{ pathname: `/mis-comercios/${busines.id}`, state: { busines: busines} }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
+                        <Link to={{ pathname: `/mis-comercios/${busines.slug}` }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
 
                         <button onClick={() => this.props.onDelete(busines.id)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
                     </td>

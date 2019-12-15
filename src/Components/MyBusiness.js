@@ -2,7 +2,7 @@ import React from 'react';
 import TableMisComercios from './TableMisComercios';
 import Loading from './Loading';
 import { Link } from 'react-router-dom';
-import Error from '../pages/NotFound'
+import Error from './pages/NotFound'
 
 class MyBusiness extends React.Component {
     state = {
@@ -21,7 +21,7 @@ class MyBusiness extends React.Component {
         const user = JSON.parse(localStorage.getItem("myData"));
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", `Bearer ${user.api_token}`);
+        myHeaders.append("Authorization", `Bearer ${user.token}`);
 
         const res = await fetch("http://backendeventos.test/api/v1/user/getbussiness", {
             headers: myHeaders
@@ -80,7 +80,7 @@ class MyBusiness extends React.Component {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user.api_token}`
+                Authorization: `Bearer ${user.token}`
             }
         };
         const res = await fetch(

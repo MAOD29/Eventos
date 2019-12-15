@@ -1,7 +1,7 @@
 import React from 'react'
 import FormBusines from './FormBusines'
 import { withRouter } from 'react-router-dom';
-import Error from '../pages/NotFound'
+import Error from './pages/NotFound'
 
 class CreateBusines extends React.Component {
 
@@ -61,7 +61,7 @@ class CreateBusines extends React.Component {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.api_token}`
+                    Authorization: `Bearer ${user.token}`
                 }
 
             }
@@ -96,7 +96,7 @@ class CreateBusines extends React.Component {
             const config = {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${user.api_token}`
+                    Authorization: `Bearer ${user.token}`
                 },
                 body: formData
             }

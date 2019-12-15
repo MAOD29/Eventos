@@ -8,11 +8,11 @@ const Header = () => {
   };
   const NavCliente = () => (
     <>
-      <NavLink to={"/mis-comercios"}>
+      <NavLink to={"/mis-comercios"} activeClassName="activo">
         <span className="nav-link">Mis Comercios</span>
       </NavLink>
     
-        <NavLink to={"/mis-eventos"}>
+        <NavLink to={"/mis-eventos"} activeClassName="activo">
           <span className="nav-link">Mis Eventos</span>
         </NavLink>
      
@@ -20,7 +20,7 @@ const Header = () => {
   );
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <NavLink to="/">
+      <NavLink to="/" activeClassName="activo">
         <span className="navbar-brand">Ixtapa Zihuatanejo</span>
       </NavLink>
 
@@ -39,14 +39,14 @@ const Header = () => {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <NavLink to="/Event"  >
+            <NavLink to="/Event" activeClassName="activo">
               <span className="nav-link">Eventos</span>
             </NavLink>
           </li>
-          <NavLink to="/Destinos">
+          <NavLink to="/Destinos" activeClassName="activo">
             <span className="nav-link">Destinos</span>
           </NavLink>
-          <NavLink to="/Comercios">
+          <NavLink to="/Comercios" activeClassName="activo">
             <span className="nav-link">Comercios</span>
           </NavLink>
         </ul>

@@ -1,6 +1,6 @@
 import React from "react";
-import CardDestino from "../Components/CardDestino";
-import Loading from "../Components/Loading"
+import CardDestino from "../CardDestino";
+import Loading from "../Loading"
 class Destino extends React.Component {
   state = {
     data: [],

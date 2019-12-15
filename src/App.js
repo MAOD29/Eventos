@@ -1,12 +1,12 @@
 import React from 'react';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom'
 
-import Home from './pages/Home'
-import Event from './pages/Event'
-import Login from './pages/Login'
-import Destinos from './pages/Destino'
-import business from './pages/Business'
-import NotFound from './pages/NotFound'
+import Home from './Components/pages/Home'
+import Event from './Components/pages/Event'
+import Login from './Components/pages/Login'
+import Destinos from './Components/pages/Destino'
+import business from './Components/pages/Business'
+import NotFound from './Components/pages/NotFound'
 import Logout from './Components/Logut'
 import Header from './Components/Header';
 
@@ -46,7 +46,8 @@ const App = () => (
        
         <Route exact path="/Event" component={Event} /> 
         <Route exact path="/Destinos" component={Destinos} />
-        <Route exact path="/Comercios" component={business} />
+        <Route exact  path="/Comercios/" component={business} />
+
         <Route exact path="/Login" render={ () => verificarLogin(Login) } />
         <Route exact path="/Logout" component={Logout}/>
         <PrivateRoute path='/mis-comercios/:id' component={EditBusines} />

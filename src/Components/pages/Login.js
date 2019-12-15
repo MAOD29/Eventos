@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
-import FormLogin from '../Components/FormLogin'
+import FormLogin from '../FormLogin'
 class Login extends React.Component {
 
     state = {

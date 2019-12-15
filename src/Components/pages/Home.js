@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
-import Portada from '../Components/Portada'
+import Portada from '../Portada'
 class Home extends React.Component {
   state = {};
 

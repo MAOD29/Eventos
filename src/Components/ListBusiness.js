@@ -1,20 +1,24 @@
 import React from 'react'
 import CardBusines from './CardBusines'
-const ListBusiness = ({business}) => (
-    <div className="card-group"> 
-          {business.map(card => {
-            return (
+//import { BusinesContext } from './providers/BussinesProvider'
 
-                <CardBusines
-                  key={card.id}
-                  busines={card}
-                />
+const ListBusiness = ({business}) => {
 
-            );
-          })}
+    return (
+        <div className="card-group">
+            {business.map(card => {
+                return (
+                    <CardBusines
+                        key={card.id}
+                        business={card}
+                    />
+
+                );
+            })}
         </div>
-     
-    )
-    
+    );
+
+
+}
 
 export default ListBusiness

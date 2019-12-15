@@ -1,16 +1,17 @@
 import React from "react";
 import FormBusines from "./FormBusines";
-import Error from '../pages/NotFound'
+import Error from './pages/NotFound'
 
 class EditBusines extends React.Component {
     state = {
-        form: this.props.location.state.busines,
+        form: [],
         options: [],
         error: null,
-        imagePreview: this.props.location.state.busines.image
+        imagePreview: null
     };
 
     componentDidMount() {
+        this.traerDatos()
         this.getTypeOfBussiness();
     }
     handleChooseFile = e => {
@@ -29,7 +30,7 @@ class EditBusines extends React.Component {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.api_token}`
+                    Authorization: `Bearer ${user.token}`
                 }
             };
             const res = await fetch(
@@ -123,14 +124,71 @@ class EditBusines extends React.Component {
         }
     };
 
+    async traerDatos() {
+
+        const { id } = this.props.match.params;
+        console.log(this.props)
+        this.setState({ loading: true })
+        const user = JSON.parse(localStorage.getItem("myData"));
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        //myHeaders.append('Accept', 'application/json')
+        myHeaders.append("Authorization", `Bearer ${user.api_token}`);
+    
+        const res = await fetch( `http://backendeventos.test/api/v1/business/${id}`, {
+            headers: myHeaders
+        });
+    
+        switch (res.status) {
+            case 200:
+                const business = await res.json();
+                console.log(business);
+                this.setState({
+                    form: business.data,
+                    imagePreview:business.data.image,
+                    loading: false,
+                });
+    
+                break;
+            case 401:
+                console.log('error 401')
+                this.setState({
+                    error: 'error no autorizado',
+                    loading: false
+                });
+                break;
+            case 404:
+                console.log('error 404')
+                this.setState({
+                    error: 'error 404 no contenido',
+                    loading: false
+                });
+                break;
+            case 500:
+                console.log('error 500')
+                this.setState({
+                    error: 'error 500',
+                    loading: false
+                });
+                break;
+    
+            default:
+                console.log('error inesperado')
+                this.setState({
+                    error: res.status,
+                    loading: false
+                });
+                break;
+        }
+    
+    }
     render() {
-        const { busines } = this.props.location.state;
         if (this.state.error) {
             return <Error data={this.state.error} />
         }
         return (
             <FormBusines
-                form={busines}
+                form={this.state.form}
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
                 options={this.state.options}

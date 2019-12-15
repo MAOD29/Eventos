@@ -1,5 +1,5 @@
 import React from 'react'
-import CardEvent from '../Components/CardEvent'
+import CardEvent from '../CardEvent'
 
 const ListEvent = ({events}) => (
 <div className="card-group"> 

@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const CardBusines = (props) => {
-    const {name,descripcion,image,location,contact,start,finish,type} = props.busines
+    const {name,descripcion,image,location,contact,start,finish,type} = props.business
     return(
         <div className="col-lg-6">
             <div className="card mb-3">

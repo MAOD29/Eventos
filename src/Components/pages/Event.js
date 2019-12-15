@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import Loading from '../Components/Loading';
+import Loading from '../Loading';
 import ListEvent from './ListEvent';
 import Error from './NotFound'
 class Event extends React.Component {

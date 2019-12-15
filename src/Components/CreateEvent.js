@@ -1,6 +1,6 @@
 import React from "react";
 import FormEvent from "./FormEvent";
-import Error from '../pages/NotFound'
+import Error from './pages/NotFound'
 
 
 class CreateEvent extends React.Component {
