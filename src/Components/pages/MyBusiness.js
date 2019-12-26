@@ -1,29 +1,30 @@
 import React from 'react';
-import TableMisComercios from './TableMisComercios';
-import Loading from './Loading';
+import TableMisComercios from '../TableMisComercios';
+import Loading from '../Loading';
 import { Link } from 'react-router-dom';
-import Error from './pages/NotFound'
+import Error from './NotFound'
+import Pagination from "react-js-pagination";
 
 class MyBusiness extends React.Component {
     state = {
         data: [],
         error: null,
-        loading: false
+        loading: true,
+        paginationData: null,
     };
 
     componentDidMount() {
         this.traerDatos();
     }
 
-    async traerDatos() {
+    traerDatos = async () => {
 
         this.setState({ loading: true })
-        const user = JSON.parse(localStorage.getItem("myData"));
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", `Bearer ${user.token}`);
 
-        const res = await fetch("http://backendeventos.test/api/v1/user/getbussiness", {
+        const myHeaders = new Headers();
+        myHeaders.append('Accept', 'application/json')
+
+        const res = await fetch("http://backendeventos.test/api/v1/business", {
             headers: myHeaders
         });
 
@@ -32,9 +33,11 @@ class MyBusiness extends React.Component {
                 const myBusiness = await res.json();
                 console.log(myBusiness);
                 this.setState({
-                    data: myBusiness,
-                    loading: false
+                    data: myBusiness.data.data,
+                    loading: false,
+                    paginationData: myBusiness.data,
                 });
+
 
                 break;
             case 401:
@@ -69,12 +72,39 @@ class MyBusiness extends React.Component {
         }
 
     }
+    handlePageChange = async (pageNumber) => {
+        this.setState({ loading: true })
+        const myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json")
+        myHeaders.append('Accept', 'application/json')
+        try {
+            const res = await fetch(`http://backendeventos.test/api/v1/business?page=${pageNumber}`, {
+                headers: myHeaders
+            })
 
+            const business = await res.json();
+            console.log(business)
+
+            this.setState({
+                data: business.data.data,
+                paginationData: business.data,
+                loading: false,
+
+            });
+
+        } catch (error) {
+            console.log(error)
+            this.setState({
+                loading: false,
+                error
+            })
+        }
+    }
     handleOnDelete = async id => {
         this.setState({
             loading: true
         });
-
+        console.log(id)
         const user = JSON.parse(localStorage.getItem("myData"));
         const config = {
             method: "DELETE",
@@ -132,6 +162,7 @@ class MyBusiness extends React.Component {
 
     };
     render() {
+        //console.log(this.state.paginationData)
         if (this.state.loading) {
             return <Loading />;
         }
@@ -140,13 +171,32 @@ class MyBusiness extends React.Component {
         }
         return (
             <React.Fragment>
-                <Link to={"/crear-comercio"}>
-                    <button className="btn btn-outline-success">Crear comercio</button>
-                </Link>
-                <TableMisComercios
-                    business={this.state.data}
-                    onDelete={this.handleOnDelete}
-                />
+                <div className=" section">
+                    <Link to={"/crear-comercio"}>
+                        <button className="btn btn-outline-success">Crear comercio</button>
+                    </Link>
+                </div>
+                <div className=" section">
+                    <TableMisComercios
+                        business={this.state.data}
+                        onDelete={this.handleOnDelete}
+                    />
+                </div>
+
+                <div className="pagination justify-content-center">
+                    <Pagination
+                        itemClass="page-item"
+                        linkClass="page-link"
+                        hideDisabled
+                        activePage={this.state.paginationData.current_page}
+                        itemsCountPerPage={this.state.paginationData.per_page}
+                        totalItemsCount={this.state.paginationData.total}
+                        pageRangeDisplayed={3}
+                        onChange={this.handlePageChange}
+
+                    />
+                </div>
+
             </React.Fragment>
         );
     }

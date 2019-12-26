@@ -11,12 +11,16 @@ import Logout from './Components/Logut'
 import Header from './Components/Header';
 
 // componentes de user
-import MyEvents from './Components/MyEvents'
+import MyEvents from './Components/pages/MyEvents'
 import CreateEvent from './Components/CreateEvent'
 import CreateBusines from './Components/CreateBusines'
-import MyBusiness from './Components/MyBusiness'
+import CreateSpot from './Components/CreateSpot'
+import MyBusiness from './Components/pages/MyBusiness'
 import EditBusines from './Components/EditBusines'
 import EditEvent from './Components/EditEvent'
+import EditSpot from './Components/EditSpot'
+import GestionDestino from './Components/pages/GestionDestino'
+
 
 const isLoging= () => {
     const user = localStorage.getItem('myData')
@@ -54,8 +58,11 @@ const App = () => (
         <PrivateRoute path='/mis-comercios' component={MyBusiness} />
         <PrivateRoute path='/mis-eventos/:id' component={EditEvent} />
         <PrivateRoute path='/mis-eventos' component={MyEvents} />
+        <PrivateRoute path='/gestion-destino/:id' component={EditSpot} />
+        <PrivateRoute path='/gestion-destino' component={GestionDestino} />
         <PrivateRoute path='/crear-comercio' component={CreateBusines} />
         <PrivateRoute path='/crear-evento' component={CreateEvent} />
+        <PrivateRoute path='/crear-destino' component={CreateSpot} />
         <Route exact path="/" component={Home} />
         <Route component={NotFound}/> 
     </Switch>

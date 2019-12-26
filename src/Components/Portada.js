@@ -1,19 +1,30 @@
 import React from "react";
-import ImageZihua from '../images/zihuatanejo.jpg'
-import {Link} from 'react-router-dom'
+import Destino from "../Components/pages/Destino"
+
 const Portada = () => (
-  <div className="jumbotron">
-    <h1 className="display-4">Conoce Ixtapa Zihuatanejo</h1>
-    <img src={ImageZihua} alt="foto de zihuatanejo"/>
-    <hr className="my-4" />
-    <p className="lead">
-    Zihuatanejo - Ixtapa, Troncones y Barra de Potosí son destinos cercanos localizados en el Estado de Guerrero, México en la costa del Pacífico en la zona conocida como la Riviera Mexicana o "Costa Grande".a los dos destinos se llega por el mismo Aeropuerto Internacional, situado a fácil acceso en coche, taxi o autobús. Estos destinos hermanos únicamente comparten servicios para dar al visitante dos destinos por el precio de uno.
-    </p>
-    
-    <Link to='/Event'>
-          <span className="btn btn-primary btn-lg">Checa nuestros eventos</span>
-      </Link>
-  </div>
+  <>
+    <div className="bg-navbar-image"></div>
+    <div className=" container portada-description">
+
+      <div className="container ">
+        <h1 className="title" >Conoce Ixtapa Zihuatanejo</h1>
+
+        <div className="container section">
+          <p className="parrafo">
+            Es un atractivo pueblo de pescadores que te ofrece un ambiente familiar y seguro, cuya principal atracción es su hermosa y protegida bahía, a unos cuantos kilómetros de la zona hotelera.
+      </p>
+
+          <p className="parrafo"> Puedes disfrutar de las claras y pacíficas aguas de la bahía.</p>
+          <p> Ixtapa es un lugar rodeado de una cadena montañosa que desciende para encontrarse con el mar y enmarca este maravilloso pueblo. Aquí disfrutarás de su tradicional atmósfera y pacífico ambiente que te ofrecen varias playas para relajarte, o bien encontrar actividades que van desde la pesca deportiva hasta la observación de aves para luego degustar un pescado que no puede ser más fresco.</p>
+        </div>
+
+      </div>
+      <div className="container section">
+        <h1 className="title">Conoce tu proximo destino</h1>
+        <Destino />
+      </div>
+    </div>
+  </>
 );
 
 export default Portada;

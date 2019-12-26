@@ -41,7 +41,7 @@ const Pagination = (props) => {
 
     return (
         <nav aria-label="Page navigation example">
-            <ul className="pagination">
+            <ul className="pagination justify-content-center">
                 {beforeOrNextLink('previous', actualPage, url, lastPage,props.handlePageChange)}
                 {linkPagination(paginationData.last_page,props.handlePageChange,actualPage)}
                 {beforeOrNextLink('next', actualPage, url, lastPage,props.handlePageChange)}

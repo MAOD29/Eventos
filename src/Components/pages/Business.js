@@ -1,10 +1,9 @@
 import React from "react"
 import ListBusines from "../ListBusiness.js"
-import Paginations from '../Pagination'
+
 import Loading from "../Loading"
 import Error from './NotFound'
 import Pagination from "react-js-pagination";
-//require("bootstrap-less/bootstrap/pagination.less");
 //import BussinesProvider from '../providers/BussinesProvider'
 class Business extends React.Component {
 
@@ -19,23 +18,23 @@ class Business extends React.Component {
         this.handleGetBusiness()
     }
 
-  
+
     componentWillUnmount() {
         this.setState({
             busines: [],
             loading: false
         });
     }
-  
-    
+
+
     handleGetBusiness = async () => {
-        const { id } = this.props.match.params;
-        
+
+
         const myHeaders = new Headers();
         // myHeaders.append("Content-Type", "application/json")
         myHeaders.append('Accept', 'application/json')
         try {
-            const res = await fetch(`http://backendeventos.test/api/v1/business?page=${id}`, {
+            const res = await fetch(`http://backendeventos.test/api/v1/business`, {
                 headers: myHeaders
             })
 
@@ -44,8 +43,9 @@ class Business extends React.Component {
 
             this.setState({
                 busines: business.data.data,
+                paginationData: business.data,
                 loading: false,
-                paginationData: business.data
+                
 
             });
 
@@ -58,8 +58,7 @@ class Business extends React.Component {
         }
     }
     handlePageChange = async (pageNumber) => {
-        const { id } = this.props.match.params;
-        
+
         const myHeaders = new Headers();
         // myHeaders.append("Content-Type", "application/json")
         myHeaders.append('Accept', 'application/json')
@@ -86,9 +85,9 @@ class Business extends React.Component {
             })
         }
     }
- 
+
     render() {
-        /// this.handleGetBusiness()
+
         if (this.state.loading) {
             return <Loading />
         }
@@ -98,22 +97,23 @@ class Business extends React.Component {
         return (
 
             <React.Fragment>
-                <div className="container">
+                <div className="container section">
                     <ListBusines
                         business={this.state.busines}
                     />
-                    <Pagination
-                      itemClass="page-item"
-                      linkClass="page-link"
-                      hideDisabled
-                      activePage={this.state.paginationData.current_page}
-                      itemsCountPerPage={this.state.paginationData.per_page}
-                      totalItemsCount={this.state.paginationData.total}
-                      pageRangeDisplayed={3}
-                      onChange={this.handlePageChange}
-                      
-                    />
-                   
+                    <div className="pagination justify-content-center">
+                        <Pagination
+                            itemClass="page-item"
+                            linkClass="page-link"
+                            hideDisabled
+                            activePage={this.state.paginationData.current_page}
+                            itemsCountPerPage={this.state.paginationData.per_page}
+                            totalItemsCount={this.state.paginationData.total}
+                            pageRangeDisplayed={3}
+                            onChange={this.handlePageChange}
+
+                        />
+                    </div>
                 </div>
             </React.Fragment>
         );

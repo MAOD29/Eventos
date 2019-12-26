@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Loading from './Loading'
 
-class TableMisComercios extends React.Component{
+class TableSpots extends React.Component{
 
     state={
         loading:false
@@ -10,17 +10,17 @@ class TableMisComercios extends React.Component{
 
     list = () => { 
         return(    
-            this.props.business.map(busines => { 
+            this.props.spots.map(spot => { 
                 return(
-                <tr key={busines.id}>
-                    <td >{busines.id}</td>
-                    <td>{busines.name}</td>
-                    <td>{busines.descripcion}</td>
-                    <td>{busines.location}</td>
+                <tr key={spot.id}>
+                    <td >{spot.id}</td>
+                    <td>{spot.name}</td>
+                    <td>{spot.descripcion}</td>
+                    <td>{spot.location}</td>
                     <td>
-                        <Link to={{ pathname: `/mis-comercios/${busines.slug}`, state: { data:busines } }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
+                        <Link to={{ pathname: `/mis-comercios/${spot.slug}`, state: { data:spot } }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
 
-                        <button onClick={() => this.props.onDelete(busines.slug)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
+                        <button onClick={() => this.props.onDelete(spot.slug)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
                     </td>
                 </tr> 
                 )
@@ -52,4 +52,4 @@ class TableMisComercios extends React.Component{
     }
     }
 
-export default TableMisComercios
+export default TableSpots

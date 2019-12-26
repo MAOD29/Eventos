@@ -13,22 +13,29 @@ class CreateEvent extends React.Component {
             start: "",
             finish: "",
             web_site: "",
-            image: ""
+            image: null
         },
-        error: null
+        error: null,
+        imagePreview: ''
     };
+    
     handleChooseFile = e => {
-        //let partialstate = {}
-        //partialstate[e.target.name] = e.target.value
-        //this.setState(partialstate)
-        console.log(e.target.files[0]);
-        this.setState({
-            form: {
-                ...this.state.form,
-                [e.target.name]: e.target.files[0]
-            }
-        });
-    };
+        //TODO VALIDAR QUE AL CAMBIAR SE BOORE LA IMAGEN PREVIA EL VALOR
+        let reader = new FileReader()
+        let file = e.target.files[0]
+        reader.onloadend = () => {
+            this.setState({
+                form: {
+                    ...this.state.form,
+                    image: file
+                },
+                imagePreview: reader.result
+            });
+        }
+        if(file){
+            reader.readAsDataURL(file)
+        }
+    }
 
     handleChange = e => {
         //let partialstate = {}
@@ -54,17 +61,16 @@ class CreateEvent extends React.Component {
         const formData = getFormData(form);
 
         const user = JSON.parse(localStorage.getItem("myData"));
-
         const config = {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${user.api_token}`
+                Authorization: `Bearer ${user.token}`
             },
             body: formData
         };
         const res = await fetch("http://backendeventos.test/api/v1/event", config);
         const data = await res.json();
-
+         
         switch (res.status) {
             case 201:
                 console.log(data);
@@ -99,7 +105,7 @@ class CreateEvent extends React.Component {
                 console.log("error inesperado");
                 console.log(data)
                 this.setState({
-                    error: res.status,
+                    error: data,
                     loading: false
                 });
                 break;
@@ -117,6 +123,7 @@ class CreateEvent extends React.Component {
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
                 onChooseFile={this.handleChooseFile}
+                imagePreview={this.state.imagePreview}
             />
         );
     }

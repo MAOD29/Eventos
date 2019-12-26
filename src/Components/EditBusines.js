@@ -1,28 +1,49 @@
 import React from "react";
 import FormBusines from "./FormBusines";
 import Error from './pages/NotFound'
+import Loading from './Loading';
 
 class EditBusines extends React.Component {
     state = {
         form: [],
         options: [],
         error: null,
-        imagePreview: null
+        imagePreview: null,
+        loading: false
     };
 
     componentDidMount() {
-        this.traerDatos()
-        this.getTypeOfBussiness();
+        //prueba de redenrizar con base a props por link 
+        if(this.props.location.state ){
+            console.log('si esxiste')
+            this.setState({
+                form: this.props.location.state.data,
+                imagePreview:this.props.location.state.data.image
+            })
+            this.getTypeOfBussiness();
+        }else{
+            this.traerDatos()
+            this.getTypeOfBussiness();
+        }
+      
     }
     handleChooseFile = e => {
-        console.log(e.target.files[0]);
-        this.setState({
-            form: {
-                ...this.state.form,
-                [e.target.name]: e.target.files[0]
-            }
-        });
-    };
+        //TODO VALIDAR QUE AL CAMBIAR SE BOORE LA IMAGEN PREVIA EL VALOR
+        let reader = new FileReader()
+        let file = e.target.files[0]
+        reader.onloadend = () => {
+            this.setState({
+                form: {
+                    ...this.state.form,
+                    image: file
+                },
+                imagePreview: reader.result
+            });
+        }
+        if(file){
+            reader.readAsDataURL(file)
+        }
+    }
     getTypeOfBussiness = async () => {
         try {
             const user = JSON.parse(localStorage.getItem("myData"));
@@ -59,7 +80,7 @@ class EditBusines extends React.Component {
     };
 
     handleSubmit = async e => {
-        const { busines } = this.props.location.state;
+       
         e.preventDefault();
 
         const { form } = this.state;
@@ -75,22 +96,25 @@ class EditBusines extends React.Component {
         const config = {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${user.api_token}`
+                Authorization: `Bearer ${user.token}`
             },
             body: formData
         };
         const res = await fetch(
-            `http://backendeventos.test/api/v1/business/${busines.id}`,
+            `http://backendeventos.test/api/v1/business/${form.slug}`,
             config
         );
         const data = await res.json();
+        console.log('aqui')
+        console.log(data)
+
         switch (res.status) {
             case 200:
                 console.log(data);
                 this.props.history.push("/mis-comercios");
                 break;
             case 401:
-              
+
                 console.log("error 401");
                 console.log(data)
                 this.setState({
@@ -99,7 +123,7 @@ class EditBusines extends React.Component {
                 });
                 break;
             case 404:
-                    this.props.history.goback();
+                this.props.history.goback();
                 console.log("error 404");
                 this.setState({
                     error: "error 404 no contenido",
@@ -125,30 +149,31 @@ class EditBusines extends React.Component {
     };
 
     async traerDatos() {
-
+        
+        
         const { id } = this.props.match.params;
-        console.log(this.props)
+       
         this.setState({ loading: true })
         const user = JSON.parse(localStorage.getItem("myData"));
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         //myHeaders.append('Accept', 'application/json')
-        myHeaders.append("Authorization", `Bearer ${user.api_token}`);
-    
-        const res = await fetch( `http://backendeventos.test/api/v1/business/${id}`, {
+        myHeaders.append("Authorization", `Bearer ${user.token}`);
+
+        const res = await fetch(`http://backendeventos.test/api/v1/business/${id}`, {
             headers: myHeaders
         });
-    
+
         switch (res.status) {
             case 200:
                 const business = await res.json();
                 console.log(business);
                 this.setState({
                     form: business.data,
-                    imagePreview:business.data.image,
+                    imagePreview: business.data.image,
                     loading: false,
                 });
-    
+
                 break;
             case 401:
                 console.log('error 401')
@@ -171,7 +196,7 @@ class EditBusines extends React.Component {
                     loading: false
                 });
                 break;
-    
+
             default:
                 console.log('error inesperado')
                 this.setState({
@@ -180,9 +205,12 @@ class EditBusines extends React.Component {
                 });
                 break;
         }
-    
+
     }
     render() {
+        if (this.state.loading) {
+            return <Loading />;
+        }
         if (this.state.error) {
             return <Error data={this.state.error} />
         }

@@ -14,10 +14,11 @@ const imagePreviewExist = (imagePreview) => {
       }
   
 }
+
 const FormBusines = ({form,onChange,onSubmit,options,onChooseFile,imagePreview}) => {
     
     return (
-    <form className="container" onSubmit={onSubmit}>
+    <form className="container section" onSubmit={onSubmit}>
         <br/>
         <div className="row">
             <div className="col-4">
@@ -81,7 +82,7 @@ const FormBusines = ({form,onChange,onSubmit,options,onChooseFile,imagePreview})
             </div>
             <div className="col-4">
                 <label >Imagen</label>
-                <input required  className="form-control" type="file"  name="image" onChange={onChooseFile}
+                <input   className="form-control" type="file"  name="image" onChange={onChooseFile}
                  />
 
                   

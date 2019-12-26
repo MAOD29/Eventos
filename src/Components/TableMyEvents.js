@@ -18,9 +18,9 @@ class TableMyEvents extends React.Component{
                     <td>{event.descripcion}</td>
                     <td>{event.location}</td>
                     <td>
-                        <Link to={{ pathname: `/mis-eventos/${event.slug}` }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
+                        <Link to={{ pathname: `/mis-eventos/${event.slug}`, state: { data:event } }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
 
-                        <button onClick={() => this.props.onDelete(event.id)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
+                        <button onClick={() => this.props.onDelete(event.slug)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
                     </td>
                 </tr> 
                 )
@@ -34,7 +34,7 @@ class TableMyEvents extends React.Component{
             return <Loading/>
           }
         return(
-            <table className="table">
+            <table className="table table-striped table-bordered table-responsive-md">
             <thead>
                 <tr>
                 <th scope="col">ID</th>
