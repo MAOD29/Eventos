@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import Loading from './Loading'
+
 
 class TableMisComercios extends React.Component{
 
@@ -13,11 +13,11 @@ class TableMisComercios extends React.Component{
             this.props.business.map(busines => { 
                 return(
                 <tr key={busines.id}>
-                    <td >{busines.id}</td>
-                    <td>{busines.name}</td>
-                    <td>{busines.descripcion}</td>
-                    <td>{busines.location}</td>
-                    <td>
+                    <td width={"5%"} >{busines.id}</td>
+                    <td width={"15%"}>{busines.name}</td>
+                    <td width={"45%"}>{busines.descripcion}</td>
+                    <td width={"20%"}>{busines.location}</td>
+                    <td width={"15%"}>
                         <Link to={{ pathname: `/mis-comercios/${busines.slug}`, state: { data:busines } }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
 
                         <button onClick={() => this.props.onDelete(busines.slug)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>

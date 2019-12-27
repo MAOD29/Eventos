@@ -20,6 +20,7 @@ class Destino extends React.Component {
                 headers: myHeaders
             });
             const destino = await res.json();
+
             this.setState({
                 destino: destino.data.data,
                 loading: false,
@@ -79,7 +80,7 @@ class Destino extends React.Component {
                                 key={card.id}
                                 name={card.name}
                                 description={card.description}
-                                imgage={card.image}
+                                image={card.image}
                                 location={card.location}
                             />
                         );

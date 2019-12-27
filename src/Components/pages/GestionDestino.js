@@ -1,5 +1,5 @@
 import React from 'react';
-import TableSpots from '../TableMisComercios';
+import TableSpots from '../TableSpots';
 import Loading from '../Loading';
 import { Link } from 'react-router-dom';
 import Error from './NotFound'
@@ -31,14 +31,12 @@ class GestionDestino extends React.Component {
         switch (res.status) {
             case 200:
                 const spots = await res.json();
-                console.log( spots);
+              
                 this.setState({
                     data: spots.data.data,
                     loading: false,
                     paginationData: spots.data,
                 });
-
-
                 break;
             case 401:
                 console.log('error 401')
@@ -83,7 +81,7 @@ class GestionDestino extends React.Component {
             })
 
             const spots = await res.json();
-            console.log(spots)
+           
 
             this.setState({
                 data: spots.data.data,
@@ -104,7 +102,7 @@ class GestionDestino extends React.Component {
         this.setState({
             loading: true
         });
-        console.log(id)
+       
         const user = JSON.parse(localStorage.getItem("myData"));
         const config = {
             method: "DELETE",
@@ -117,12 +115,10 @@ class GestionDestino extends React.Component {
             `http://backendeventos.test/api/v1/spot/${id}`,
             config
         );
-        console.log(res.status)
+       
 
         switch (res.status) {
             case 200:
-                const data = await res.json();
-                console.log(data);
                 this.setState({
                     loading: false
                 });
@@ -173,7 +169,7 @@ class GestionDestino extends React.Component {
             <React.Fragment>
                 <div className=" section">
                     <Link to={"/crear-destino"}>
-                        <button className="btn btn-outline-success">Crear comercio</button>
+                        <button className="btn btn-outline-success">Crear destino</button>
                     </Link>
                 </div>
                 <div className=" section">

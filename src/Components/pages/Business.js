@@ -39,7 +39,7 @@ class Business extends React.Component {
             })
 
             const business = await res.json();
-            console.log(business)
+           
 
             this.setState({
                 busines: business.data.data,
@@ -68,7 +68,7 @@ class Business extends React.Component {
             })
 
             const business = await res.json();
-            console.log(business)
+           
 
             this.setState({
                 busines: business.data.data,

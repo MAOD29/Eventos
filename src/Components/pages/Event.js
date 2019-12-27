@@ -25,7 +25,7 @@ class Event extends React.Component {
             const event = await res.json();
             switch (res.status) {
                 case 200:
-                    console.log(event.data);
+                   
                     this.setState({
                         event: event.data.data,
                         loading: false,

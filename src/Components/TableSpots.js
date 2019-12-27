@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import Loading from './Loading'
+
 
 class TableSpots extends React.Component{
 
@@ -13,12 +13,12 @@ class TableSpots extends React.Component{
             this.props.spots.map(spot => { 
                 return(
                 <tr key={spot.id}>
-                    <td >{spot.id}</td>
-                    <td>{spot.name}</td>
-                    <td>{spot.descripcion}</td>
-                    <td>{spot.location}</td>
-                    <td>
-                        <Link to={{ pathname: `/mis-comercios/${spot.slug}`, state: { data:spot } }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
+                    <td  width={"5%"}>{spot.id}</td>
+                    <td width={"15%"}>{spot.name}</td>
+                    <td width={"45%"}>{spot.description}</td>
+                    <td width={"20%"}>{spot.location}</td>
+                    <td width={"15%"}>
+                        <Link to={{ pathname: `/gestion-destino/${spot.slug}`, state: { data:spot } }}><button className="btn btn btn-outline-info btn-sm">Editar</button></Link>  
 
                         <button onClick={() => this.props.onDelete(spot.slug)} type="button" className="btn btn btn-outline-danger btn-sm" >Eliminar</button>
                     </td>

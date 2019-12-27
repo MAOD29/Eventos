@@ -31,7 +31,7 @@ class MyBusiness extends React.Component {
         switch (res.status) {
             case 200:
                 const myBusiness = await res.json();
-                console.log(myBusiness);
+               
                 this.setState({
                     data: myBusiness.data.data,
                     loading: false,
